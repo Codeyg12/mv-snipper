@@ -1,4 +1,7 @@
 package com.codey.snipperapp.repository;
 
-public class SnippetRepository {
+import com.codey.snipperapp.entity.Snippet;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SnippetRepository extends JpaRepository<Snippet, Long> {
 }
