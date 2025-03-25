@@ -26,4 +26,8 @@ public class SnippetService {
   public Snippet saveSnippet(Snippet snippet) {
     return snippetRepository.save(snippet);
   }
+
+  public List<Snippet> findAllByLanguage(String lang) {
+    return snippetRepository.findAllByLanguage(lang);
+  }
 }

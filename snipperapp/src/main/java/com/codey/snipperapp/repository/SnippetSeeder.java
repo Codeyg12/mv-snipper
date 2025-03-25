@@ -20,6 +20,12 @@ public class SnippetSeeder implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+    long snippetCount = snippetRepository.count();
+
+    if (snippetCount > 0) {
+      System.out.println("Snippet count is " + snippetCount + " skipping seeding");
+      return;
+    }
     ObjectMapper mapper = new ObjectMapper();
 
     File jsonFile = new File("snipperapp/src/main/resources/snippetSeedData.json");
