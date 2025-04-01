@@ -25,7 +25,8 @@ public class SnippetController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Snippet>> getSnippets(@RequestParam(name = "lang", required = false) String lang) {
+  public ResponseEntity<List<Snippet>> getSnippets(
+      @RequestParam(name = "lang", required = false) String lang) throws Exception {
     if (lang == null) {
       return ResponseEntity.ok(snippetService.getAllSnippets());
     }
@@ -33,12 +34,12 @@ public class SnippetController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Snippet> getSnippetById(@PathVariable Long id) {
+  public ResponseEntity<Snippet> getSnippetById(@PathVariable Long id) throws Exception {
     return ResponseEntity.ok(snippetService.getSnippetById(id));
   }
 
   @PostMapping
-  public ResponseEntity<Snippet> createSnippet(@RequestBody Snippet snippet) {
+  public ResponseEntity<Snippet> createSnippet(@RequestBody Snippet snippet) throws Exception {
     return new ResponseEntity<>(snippetService.saveSnippet(snippet), HttpStatus.CREATED);
   }
 }
