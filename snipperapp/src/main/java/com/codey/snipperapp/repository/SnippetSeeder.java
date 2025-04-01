@@ -1,6 +1,7 @@
 package com.codey.snipperapp.repository;
 
 import com.codey.snipperapp.entity.Snippet;
+import com.codey.snipperapp.service.EncryptionService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.CommandLineRunner;
@@ -13,9 +14,11 @@ import java.util.List;
 public class SnippetSeeder implements CommandLineRunner {
 
   private final SnippetRepository snippetRepository;
+  private final EncryptionService encryptionService;
 
-  public SnippetSeeder(SnippetRepository snippetRepository) {
+  public SnippetSeeder(SnippetRepository snippetRepository, EncryptionService encryptionService) {
     this.snippetRepository = snippetRepository;
+    this.encryptionService = encryptionService;
   }
 
   @Override
@@ -31,8 +34,12 @@ public class SnippetSeeder implements CommandLineRunner {
     File jsonFile = new File("snipperapp/src/main/resources/snippetSeedData.json");
 
 
-    List<Snippet> snippets = mapper.readValue(jsonFile, new TypeReference<List<Snippet>>() {
+    List<Snippet> snippets = mapper.readValue(jsonFile, new TypeReference<>() {
     });
+
+    for (Snippet snippet : snippets) {
+      snippet.setCode(encryptionService.encrypt(snippet.getCode()));
+    }
 
     snippetRepository.saveAll(snippets);
 
