@@ -26,7 +26,7 @@ public class Snippet {
   @Column(nullable = false)
   private String language;
 
-  @Column(nullable = false)
+  @Column(nullable = false, columnDefinition = "TEXT")
   private String code;
 
   @ManyToOne(fetch = FetchType.LAZY)
