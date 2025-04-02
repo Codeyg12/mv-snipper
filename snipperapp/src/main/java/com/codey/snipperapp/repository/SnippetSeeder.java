@@ -23,6 +23,7 @@ public class SnippetSeeder implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+//    snippetRepository.deleteAll();
     long snippetCount = snippetRepository.count();
 
     if (snippetCount > 0) {
